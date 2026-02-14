@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:url('https://i.pinimg.com/1200x/ed/11/6e/ed116e818eef98d3b034444eabbbd835.jpg') no-repeat center/cover;
+font-family:sans-serif;
+color:white;
+}
+.card{
+width:400px;
+padding:40px;
+border-radius:20px;
+backdrop-filter:blur(20px);
+background:rgba(255,255,255,0.1);
+}
+button{
+width:100%;
+padding:12px;
+margin-top:20px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+<h2>Dashboard</h2>
+<div id="profile"></div>
+<button onclick="logout()">Logout</button>
+</div>
+
+<script>
+const supabase = window.supabase.createClient(
+"https://opixidygpndbfuisjkrk.supabase.co",
+"sb_publishable_N6RdTgjgUHQbdtvPX9uPqA_VTraUegI"
+);
+
+async function init(){
+const {data:{session}}=await supabase.auth.getSession();
+
+if(!session){
+window.location.href="index.html";
+return;
+}
+
+const {data,error}=await supabase
+.from("profiles")
+.select("*")
+.eq("id",session.user.id)
+.single();
+
+if(error){
+document.getElementById("profile").innerText=error.message;
+return;
+}
+
+document.getElementById("profile").innerHTML=`
+<p><strong>Email:</strong> ${session.user.email}</p>
+<p><strong>Username:</strong> ${data.username}</p>
+<p><strong>Name:</strong> ${data.full_name}</p>
+`;
+}
+
+async function logout(){
+await supabase.auth.signOut();
+window.location.href="index.html";
+}
+
+init();
+</script>
+</body>
+</html>
