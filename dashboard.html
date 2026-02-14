@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Auth System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">Auth System</h1>
+            <div class="nav-links">
+                <a href="dashboard.html" class="active">Dashboard</a>
+                <a href="profile.html">Profile</a>
+                <a href="create-post.html">Create Post</a>
+                <a href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="dashboard-container">
+            <div class="welcome-card">
+                <h2>Welcome to your Dashboard</h2>
+                <div id="userInfo" class="user-info">
+                    <div class="loading">Loading your information...</div>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Account Status</h3>
+                    <p id="accountStatus">✅ Active</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Member Since</h3>
+                    <p id="memberSince">Loading...</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Last Login</h3>
+                    <p id="lastLogin">Loading...</p>
+                </div>
+            </div>
+
+            <div class="dashboard-sections">
+                <div class="section">
+                    <h3>📋 Recent Activity</h3>
+                    <div id="recentActivity" class="activity-list"></div>
+                </div>
+                
+                <div class="section">
+                    <h3>📝 Your Posts</h3>
+                    <div id="postsContainer" class="posts-grid"></div>
+                    <a href="create-post.html" class="btn btn-primary" style="margin-top: 1rem;">+ Create New Post</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
